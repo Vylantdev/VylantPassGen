@@ -6,7 +6,7 @@ import { PasswordHistoryService } from './services/password-history.service';
 import { DEFAULT_PASSWORD_OPTIONS } from './models/password-options.model';
 import { copyToClipboard } from './utils/clipboard';
 import { openUrl } from '@tauri-apps/plugin-opener';
-import { register, unregister } from '@tauri-apps/plugin-global-shortcut';
+import { isRegistered, register, unregister } from '@tauri-apps/plugin-global-shortcut';
 import { check } from '@tauri-apps/plugin-updater';
 import { relaunch } from '@tauri-apps/plugin-process';
 
@@ -39,6 +39,10 @@ export class App implements OnInit, OnDestroy {
   private toastTimeout?: ReturnType<typeof setTimeout>;
 
   async ngOnInit(): Promise<void> {
+    if (await isRegistered(GLOBAL_SHORTCUT)) {
+      await unregister(GLOBAL_SHORTCUT);
+    }
+
     await register(GLOBAL_SHORTCUT, (event) => {
       if (event.state !== 'Pressed') return;
       this.generate();
