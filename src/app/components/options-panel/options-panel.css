@@ -1,0 +1,76 @@
+.options {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+h2 {
+  margin: 0;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.switch-row input[type='checkbox'] {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.length-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.length-row input[type='number'] {
+  width: 5rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.length-row input[type='number']:focus-visible {
+  border-color: var(--accent);
+}
+
+.length-row input[type='number']:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.warning {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--purple-300);
+  background: var(--purple-900);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+}

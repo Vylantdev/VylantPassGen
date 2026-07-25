@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --purple-50: #f4effa;
+  --purple-100: #e4d8f3;
+  --purple-200: #c9b1e7;
+  --purple-300: #af8bda;
+  --purple-400: #9464ce;
+  --purple-500: #793dc2;
+  --purple-600: #61319b;
+  --purple-700: #492574;
+  --purple-800: #30184e;
+  --purple-900: #180c27;
+  --purple-950: #11091b;
+
+  --accent: var(--purple-500);
+  --accent-hover: var(--purple-600);
+
+  --bg: var(--purple-950);
+  --surface: var(--purple-900);
+  --surface-alt: var(--purple-800);
+  --text: var(--purple-50);
+  --text-muted: var(--purple-300);
+  --border: var(--purple-700);
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  overflow: hidden;
+}

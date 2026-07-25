@@ -1,0 +1,67 @@
+<section class="options">
+  <h2>Options</h2>
+
+  <div class="toggles">
+    <label class="switch-row">
+      <span>Capitals (A-Z)</span>
+      <input
+        type="checkbox"
+        [checked]="options().includeCapitals"
+        (change)="toggle('includeCapitals')"
+      />
+    </label>
+
+    <label class="switch-row">
+      <span>Lowercase (a-z)</span>
+      <input
+        type="checkbox"
+        [checked]="options().includeLowercase"
+        (change)="toggle('includeLowercase')"
+      />
+    </label>
+
+    <label class="switch-row">
+      <span>Digits (0-9)</span>
+      <input
+        type="checkbox"
+        [checked]="options().includeDigits"
+        (change)="toggle('includeDigits')"
+      />
+    </label>
+
+    <label class="switch-row">
+      <span>Special (!@#$...)</span>
+      <input
+        type="checkbox"
+        [checked]="options().includeSpecial"
+        (change)="toggle('includeSpecial')"
+      />
+    </label>
+  </div>
+
+  @if (!hasEnabledCategory()) {
+    <p class="warning">Enable at least one character type to generate a password.</p>
+  }
+
+  <div class="length-row">
+    <label for="length">Length</label>
+    <input
+      id="length"
+      type="number"
+      [min]="minLength"
+      [max]="maxLength"
+      [value]="options().length"
+      [disabled]="options().randomLength"
+      (change)="setLength($any($event.target).value)"
+    />
+  </div>
+
+  <label class="switch-row">
+    <span>Random length ({{ randomLengthMin }}-{{ randomLengthMax }})</span>
+    <input
+      type="checkbox"
+      [checked]="options().randomLength"
+      (change)="setRandomLength($any($event.target).checked)"
+    />
+  </label>
+</section>

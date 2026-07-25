@@ -1,0 +1,25 @@
+<div class="scrim" [class.visible]="open()" (click)="closePanel.emit()"></div>
+
+<aside class="panel" [class.open]="open()">
+  <header>
+    <h2>History</h2>
+    <button class="icon-btn" (click)="closePanel.emit()" aria-label="Close history">&times;</button>
+  </header>
+
+  @if (entries().length === 0) {
+    <p class="empty">No passwords generated yet.</p>
+  } @else {
+    <button class="clear-btn" (click)="clearHistory.emit()">Clear history</button>
+    <ul>
+      @for (entry of entries(); track entry.generatedAt.getTime()) {
+        <li (click)="copyEntry.emit(entry.password)">
+          <code>{{ entry.password }}</code>
+          <div class="entry-footer">
+            <span class="time">{{ formatTime(entry.generatedAt) }}</span>
+            <button class="copy-btn" (click)="$event.stopPropagation(); copyEntry.emit(entry.password)">Copy</button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</aside>
