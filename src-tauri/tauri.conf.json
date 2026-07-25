@@ -43,7 +43,7 @@
   "plugins": {
     "updater": {
       "endpoints": [
-        "https://github.com/vylantdev/vylant-pass-gen/releases/latest/download/latest.json"
+        "https://github.com/Vylantdev/VylantPassGen/releases/latest/download/latest.json"
       ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDhENzg0M0I1N0I2QkE0QUUKUldTdXBHdDd0VU40aldzQlpEeGxQZ21KZjBaUE9HT3h0U1RYNWFaZjRpb1kyY2FRZ3J3SVVieEkK"
     }

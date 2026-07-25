@@ -39,7 +39,8 @@ export class App implements OnInit, OnDestroy {
   private toastTimeout?: ReturnType<typeof setTimeout>;
 
   async ngOnInit(): Promise<void> {
-    await register(GLOBAL_SHORTCUT, () => {
+    await register(GLOBAL_SHORTCUT, (event) => {
+      if (event.state !== 'Pressed') return;
       this.generate();
       void this.copyCurrent();
     });
