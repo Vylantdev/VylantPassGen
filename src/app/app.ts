@@ -7,7 +7,7 @@ import { DEFAULT_PASSWORD_OPTIONS } from './models/password-options.model';
 import { copyToClipboard } from './utils/clipboard';
 import { openUrl } from '@tauri-apps/plugin-opener';
 import { isRegistered, register, unregister } from '@tauri-apps/plugin-global-shortcut';
-import { check } from '@tauri-apps/plugin-updater';
+import { check, type Update } from '@tauri-apps/plugin-updater';
 import { relaunch } from '@tauri-apps/plugin-process';
 import {
   isPermissionGranted,
@@ -34,6 +34,7 @@ export class App implements OnInit, OnDestroy {
   protected readonly currentPassword = signal('');
   protected readonly historyOpen = signal(false);
   protected readonly toastVisible = signal(false);
+  protected readonly updateInfo = signal<Update | null>(null);
 
   protected readonly canGenerate = computed(() =>
     this.passwordGenerator.hasEnabledCategory(this.options()),
@@ -61,12 +62,27 @@ export class App implements OnInit, OnDestroy {
     try {
       const update = await check();
       if (update) {
-        await update.downloadAndInstall();
-        await relaunch();
+        this.updateInfo.set(update);
       }
     } catch {
       // No release channel published yet, or offline - updates are optional, fail silently.
     }
+  }
+
+  async applyUpdate(): Promise<void> {
+    const update = this.updateInfo();
+    if (!update) return;
+    try {
+      await update.downloadAndInstall();
+      await relaunch();
+    } catch {
+      // Download/install failed - leave the dialog dismissed rather than blocking the app.
+      this.updateInfo.set(null);
+    }
+  }
+
+  dismissUpdate(): void {
+    this.updateInfo.set(null);
   }
 
   async ngOnDestroy(): Promise<void> {

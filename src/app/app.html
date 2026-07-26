@@ -44,4 +44,16 @@
   />
 
   <div class="toast" [class.visible]="toastVisible()">Copied to clipboard</div>
+
+  @if (updateInfo(); as update) {
+    <div class="update-scrim"></div>
+    <div class="update-dialog">
+      <h2>Update available</h2>
+      <p class="update-versions">Do you want to update to the new version (v{{ update.version }})?</p>
+      <div class="update-actions">
+        <button class="btn secondary" (click)="applyUpdate()">Yes</button>
+        <button class="btn primary" (click)="dismissUpdate()">Later</button>
+      </div>
+    </div>
+  }
 </div>
