@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "VylantPassGen",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "identifier": "dev.vylant.passgen",
   "build": {
     "frontendDist": "../dist/vylant-pass-gen/browser",
@@ -14,7 +14,7 @@
       {
         "title": "VylantPassGen",
         "width": 560,
-        "height": 660,
+        "height": 690,
         "minWidth": 420,
         "minHeight": 480,
         "resizable": true,

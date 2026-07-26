@@ -9,6 +9,11 @@ import { openUrl } from '@tauri-apps/plugin-opener';
 import { isRegistered, register, unregister } from '@tauri-apps/plugin-global-shortcut';
 import { check } from '@tauri-apps/plugin-updater';
 import { relaunch } from '@tauri-apps/plugin-process';
+import {
+  isPermissionGranted,
+  requestPermission,
+  sendNotification,
+} from '@tauri-apps/plugin-notification';
 
 const GLOBAL_SHORTCUT = 'CommandOrControl+Alt+P';
 
@@ -46,8 +51,12 @@ export class App implements OnInit, OnDestroy {
     await register(GLOBAL_SHORTCUT, (event) => {
       if (event.state !== 'Pressed') return;
       this.generate();
-      void this.copyCurrent();
+      void this.copyCurrentFromShortcut();
     });
+
+    if (!(await isPermissionGranted())) {
+      await requestPermission();
+    }
 
     try {
       const update = await check();
@@ -74,6 +83,18 @@ export class App implements OnInit, OnDestroy {
   async copyCurrent(): Promise<void> {
     if (!this.currentPassword()) return;
     await this.copyAndNotify(this.currentPassword());
+  }
+
+  private async copyCurrentFromShortcut(): Promise<void> {
+    if (!this.currentPassword()) return;
+    const success = await copyToClipboard(this.currentPassword());
+    if (!success) return;
+    if (await isPermissionGranted()) {
+      sendNotification({
+        title: 'VylantPassGen',
+        body: 'Password generated and copied to clipboard.',
+      });
+    }
   }
 
   async copyFromHistory(password: string): Promise<void> {
